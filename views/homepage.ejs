@@ -1,3 +1,11 @@
 <h1>Welcome to FavoriteBands!</h1>
 
-<p>You've made it to the homepage. Good job. You should see a list of bands here</p>
+<p>You've made it to the homepage. Good job. You should see a list of bands here.</p>
+
+<p>These are the bands I have so far:</p>
+
+<ul>
+<% bands.forEach(function(band) { %>
+  <li><%= band.name %></li>
+<% }); %>
+</ul>
