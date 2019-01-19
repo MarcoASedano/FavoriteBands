@@ -1,5 +1,9 @@
-var express = require("express");
-var app = express();
+var express     = require("express"),
+    app         = express();
+    bodyParser  = require("body-parser"),
+    mongoose    = require("mongoose");
+
+app.set("view engine", "ejs");
 
 app.get("/", function(req, res) {
   res.render("homepage");
