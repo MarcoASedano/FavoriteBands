@@ -1,17 +1,28 @@
 <% include partials/header %>
-
 <body>
 
-<h1>Welcome to Favorite Bands!</h1>
+<div class="container">
+  <header>
+    <!-- Welcome Jumbotron -->
+    <div class="jumbotron">
+      <h1 class="display-4">Welcome to Favorite Bands!</h1>
+      <p class="lead">You've made it to the homepage. Good job. You should see a list of bands here.</p>
+    </div>
+  </header>
 
-<p>You've made it to the homepage. Good job. You should see a list of bands here.</p>
-
-<p>These are the bands I have so far:</p>
-
-<ul>
-<% bands.forEach(function(band) { %>
-  <li><%= band.name %></li>
-<% }); %>
-</ul>
+  <!-- List of bands grid -->
+  <div class="row text-center">
+    <% bands.forEach(function(band) { %>
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100">
+          <img class="card-img-top img-fluid h-40" src="<%= band.img %>">
+          <div class="card-body">
+            <h4 class="card-title"><%= band.name %></h4>
+          </div>
+        </div>
+      </div>
+    <% }); %>
+  </div>
+</div>
 
 <% include partials/footer %>
