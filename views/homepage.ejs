@@ -4,20 +4,22 @@
 <div class="container">
   <header>
     <!-- Welcome Jumbotron -->
-    <div class="jumbotron">
+    <div class="jumbotron mt-4">
       <h1 class="display-4">Welcome to Favorite Bands!</h1>
       <p class="lead">You've made it to the homepage. Good job. You should see a list of bands here.</p>
     </div>
   </header>
 
   <!-- List of bands grid -->
-  <div class="row text-center">
+  <div class="row">
     <% bands.forEach(function(band) { %>
-      <div class="col-md-6 col-lg-4">
-        <div class="card h-100">
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card h-100 border-0">
           <img class="card-img-top img-fluid h-40" src="<%= band.img %>">
           <div class="card-body">
             <h4 class="card-title"><%= band.name %></h4>
+            <p class="card-text">Some paragraph text describing the band.<%= band.description %></p>
+            <a href="<%= band.wiki %>" class="btn btn-primary btn-sm">Wikipedia</a>
           </div>
         </div>
       </div>
