@@ -1,8 +1,11 @@
 <% include partials/header %>
 
-
+<container>
+<img class="img-fluid" src="<%= band.img %>">
 <h1>The band is: <%= band.name %></h1>
+<a class="btn btn-primary" href="<%= band.wiki %>">Wiki</a>
 
-<p>This page will show information about one band. It should have a link that takes you back to the homepage.</p>
+<a class="btn btn-outline-primary" href="/bands">Go home</a>
+</container>
 
 <% include partials/footer %>
