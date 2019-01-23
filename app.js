@@ -25,11 +25,13 @@ var bandSchema = new mongoose.Schema({
 
 var Band = mongoose.model("Band", bandSchema);
 
+//****** ROUTES ********//
+
 app.get("/", function(req, res) {
   res.redirect("/bands");
 });
 
-// show all bands
+// INDEX that shows all bands
 app.get("/bands", function(req, res) {
   Band.find({}, function(err, allBands) {
     if (err) {
@@ -40,7 +42,12 @@ app.get("/bands", function(req, res) {
   })
 });
 
-// add new band object to database
+// form to add a NEW band
+app.get("/bands/new", function(req, res) {
+  res.render("new");
+});
+
+// CREATE new band object to database
 app.post("/bands", function(req, res) {
   var name = req.body.name;
   var img = req.body.img;
