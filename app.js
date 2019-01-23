@@ -35,7 +35,7 @@ app.get("/bands", function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      res.render("home", {bands: allBands});
+      res.render("index", {bands: allBands});
     }
   })
 });

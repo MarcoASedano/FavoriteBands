@@ -1,11 +1,22 @@
 <% include partials/header %>
 
-<container>
-<img class="img-fluid" src="<%= band.img %>">
-<h1>The band is: <%= band.name %></h1>
-<a class="btn btn-primary" href="<%= band.wiki %>">Wiki</a>
+<div class="container container-fluid">
 
-<a class="btn btn-outline-primary" href="/bands">Go home</a>
-</container>
+  <header>
+    <div class="row mt-4">
+      <img class="img-fluid rounded mx-auto d-block" src="<%= band.img %>">
+    </div>
+  </header>
+
+  <div class="card w-auto mt-3">
+    <div class="card-body">
+      <h1 class="card-title display-3"><%= band.name %></h1>
+      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+      <a class="btn btn-primary" href="<%= band.wiki %>">Wiki</a>
+      <a class="btn btn-outline-primary" href="/bands">Go home</a>
+    </div>
+  </div>
+
+</div>
 
 <% include partials/footer %>

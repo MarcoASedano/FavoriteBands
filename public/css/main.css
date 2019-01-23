@@ -7,10 +7,14 @@ html body {
   text-shadow: .25px .25px gray;
 }
 
-.btn-sm {
+.btn-sm, .btn-outline-primary {
   color: white;
-  background-color: #b16464;
+  background-color: maroon;
   border: none;
+}
+
+.btn-sm:hover, .btn-outline-primary:hover {
+  background-color: #b16464;
 }
 
 .card-img-top {
