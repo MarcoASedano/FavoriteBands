@@ -8,3 +8,4 @@ Technology Stack
 - Express
 - MongoDB
 - Bootstrap
+- HTML/CSS/JavaScript
