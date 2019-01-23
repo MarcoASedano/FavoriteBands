@@ -1,7 +1,8 @@
 var express     = require("express"),
     app         = express();
     bodyParser  = require("body-parser"),
-    mongoose    = require("mongoose");
+    mongoose    = require("mongoose")
+    request     = require("request");
 
 // set public directory for static files
 app.use(express.static("public"));
@@ -24,6 +25,12 @@ app.get("/", function(req, res) {
   ];
 
   res.render("homepage", {bands: bands});
+});
+
+app.get("/:band", function(req, res) {
+  band = {name: req.params.band}
+
+  res.render("band", {band: band});
 });
 
 app.listen(3000, function() {
