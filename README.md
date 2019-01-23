@@ -1,9 +1,11 @@
 # FavoriteBands
-A simple website that lists my favorite bands.
+A simple website that lists your favorite bands.
 
-Something I built to help me build a website from scratch using HTML/CSS/Javascript.
+Something I made to help me practice building a RESTful website from scratch.
 
 Technology Stack
 - Node.js
 - Express
 - MongoDB
+- Bootstrap
+- HTML/CSS/JavaScript
