@@ -3,8 +3,10 @@
 <div class="container container-fluid">
 
   <header>
-    <div class="row mt-4">
-      <img class="img-fluid rounded mx-auto d-block" src="<%= band.img %>">
+    <div class="h-25 w-100 d-inline-block">
+      <div class="w-50 d-block mx-auto mt-4">
+        <img class="img-fluid rounded mx-auto d-block" src="<%= band.img %>">
+      </div>
     </div>
   </header>
 
@@ -13,6 +15,7 @@
       <h1 class="card-title display-3"><%= band.name %></h1>
       <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
       <a class="btn btn-primary" href="<%= band.wiki %>">Wiki</a>
+      <a class="btn btn-warning" href="/bands/<%= band._id %>/edit">Edit</a>
       <a class="btn btn-outline-primary" href="/bands">Go home</a>
     </div>
   </div>

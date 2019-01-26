@@ -2,21 +2,21 @@
 
 <div class="container">
   <div class="card w-75 mx-auto mt-5">
-    <h1 class="card-header">Add a new band</h5>
+    <h1 class="card-header">Add a new band</h1>
     <div class="card-body">
       <p class="card-text">Please fill out all of the fields:</p>
       <form action="/bands" method="POST">
         <div class="form-group">
           <label for="name">Name</label>
-          <input type="text" class="form-control" id="name" name="band[name]" placeholder="name">
+          <input type="text" class="form-control" id="name" name="band[name]" placeholder="name" required>
         </div>
         <div class="form-group">
           <label for="wiki">Wiki Link</label>
-          <input type="link" class="form-control" id="wiki" name="band[wiki]" placeholder="wiki link">
+          <input type="link" class="form-control" id="wiki" name="band[wiki]" placeholder="wiki link" required>
         </div>
         <div class="form-group">
           <label for="img">Image Link</label>
-          <input type="link" class="form-control" id="img" name="band[img]" placeholder="image link">
+          <input type="link" class="form-control" id="img" name="band[img]" placeholder="image link" required>
         </div>
         <button type="submit" class="btn btn-success btn-sm">Create</button>
         <a href="/bands" class="btn btn-outline-primary btn-sm">Cancel</a>

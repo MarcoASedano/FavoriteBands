@@ -69,6 +69,28 @@ app.get("/bands/:id", function(req, res) {
   });
 });
 
+// Get form to EDIT a specific band
+app.get("/bands/:id/edit", function(req, res) {
+  Band.findById(req.params.id, function(err, band) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("edit", {band: band});
+    }
+  });
+});
+
+// EDIT a specific band
+app.post("/bands/:id", function(req, res) {
+  Band.findByIdAndUpdate(req.params.id, req.body.band, function(err, newlyCreated) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect("/bands/" + req.params.id);
+    }
+  });
+});
+
 // start server
 app.listen(3000, function() {
   console.log("The FavoriteBands server has started!");
