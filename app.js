@@ -11,7 +11,7 @@ var express         = require("express"),
 mongoose.connect("mongodb://localhost/favoritebands", {useNewUrlParser: true});
 
 // set public directory for static files
-app.use(express.static("public"));
+app.use(express.static(__dirname + "public"));
 
 // use bodyParser to parse incoming post requests
 app.use(bodyParser.urlencoded({extended: true}));
