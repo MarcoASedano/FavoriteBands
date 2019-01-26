@@ -24,6 +24,16 @@
     </div>
   </div>
 
+  <div class="card w-auto my-3">
+    <div class="card-body">
+      <% band.comments.forEach(function(comment) { %>
+        <strong><%= comment.author %></strong>
+        <p><%= comment.text %></p>
+        <hr>
+      <% }) %>
+    </div>
+  </div>
+
 </div>
 
 <% include ../partials/footer %>
