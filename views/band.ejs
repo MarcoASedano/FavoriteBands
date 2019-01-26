@@ -16,7 +16,10 @@
       <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
       <a class="btn btn-primary" href="<%= band.wiki %>">Wiki</a>
       <a class="btn btn-warning" href="/bands/<%= band._id %>/edit">Edit</a>
-      <a class="btn btn-outline-primary" href="/bands">Go home</a>
+      <form class="d-inline-block" action="/bands/<%= band._id %>?_method=DELETE" method="POST">
+        <button class="btn btn-outline-primary">Delete</button>
+      </form>
+      <a class="btn btn-outline-success" href="/bands">Go home</a>
     </div>
   </div>
 

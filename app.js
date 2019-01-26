@@ -1,8 +1,9 @@
-var express     = require("express"),
-    app         = express();
-    bodyParser  = require("body-parser"),
-    mongoose    = require("mongoose")
-    request     = require("request");
+var express         = require("express"),
+    app             = express();
+    bodyParser      = require("body-parser"),
+    methodOverride  = require("method-override");
+    mongoose        = require("mongoose")
+    request         = require("request");
 
 //connect to mongoose server
 mongoose.connect("mongodb://localhost/favoritebands", {useNewUrlParser: true});
@@ -12,6 +13,9 @@ app.use(express.static("public"));
 
 // use bodyParser to parse incoming post requests
 app.use(bodyParser.urlencoded({extended: true}));
+
+// allow put and delete request in html forms
+app.use(methodOverride("_method"));
 
 // set view engine to use ejs templates
 app.set("view engine", "ejs");
@@ -49,11 +53,11 @@ app.get("/bands/new", function(req, res) {
 
 // CREATE new band object to database
 app.post("/bands", function(req, res) {
-  Band.create(req.body.band, function(err, newlyCreated) {
+  Band.create(req.body.band, function(err, band) {
     if (err) {
       console.log(err);
     } else {
-      res.redirect("/bands");
+      res.redirect("/bands/" + band.id);
     }
   });
 });
@@ -81,12 +85,23 @@ app.get("/bands/:id/edit", function(req, res) {
 });
 
 // EDIT a specific band
-app.post("/bands/:id", function(req, res) {
-  Band.findByIdAndUpdate(req.params.id, req.body.band, function(err, newlyCreated) {
+app.put("/bands/:id", function(req, res) {
+  Band.findByIdAndUpdate(req.params.id, req.body.band, function(err, band) {
     if (err) {
       console.log(err);
     } else {
       res.redirect("/bands/" + req.params.id);
+    }
+  });
+});
+
+// DELETE a specific band
+app.delete("/bands/:id", function(req, res) {
+  Band.findByIdAndRemove(req.params.id, function(err) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect("/bands");
     }
   });
 });
