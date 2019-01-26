@@ -2,7 +2,8 @@ var express         = require("express"),
     app             = express();
     bodyParser      = require("body-parser"),
     methodOverride  = require("method-override");
-    mongoose        = require("mongoose")
+    mongoose        = require("mongoose");
+    Band            = require("./models/band")
     request         = require("request");
 
 //connect to mongoose server
@@ -19,15 +20,6 @@ app.use(methodOverride("_method"));
 
 // set view engine to use ejs templates
 app.set("view engine", "ejs");
-
-// Schema Setup
-var bandSchema = new mongoose.Schema({
-  name: String,
-  img: String,
-  wiki: String
-});
-
-var Band = mongoose.model("Band", bandSchema);
 
 //****** ROUTES ********//
 
