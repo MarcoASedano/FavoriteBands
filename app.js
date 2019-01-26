@@ -49,27 +49,22 @@ app.get("/bands/new", function(req, res) {
 
 // CREATE new band object to database
 app.post("/bands", function(req, res) {
-  var name = req.body.name;
-  var img = req.body.img;
-  var wiki = req.body.wiki;
-  var newBand = {name: name, img: img, wiki: wiki};
-
-  Band.create(newBand, function(err, newlyCreated) {
+  Band.create(req.body.band, function(err, newlyCreated) {
     if (err) {
       console.log(err);
     } else {
-      res.redirect("/bands/" + name);
+      res.redirect("/bands");
     }
   });
 });
 
-// get more information about one band
-app.get("/bands/:band", function(req, res) {
-  Band.find({name: req.params.band}, function(err, band) {
+// GET more information about one band
+app.get("/bands/:id", function(req, res) {
+  Band.findById(req.params.id, function(err, band) {
     if (err) {
       console.log(err);
     } else {
-      res.render("band", {band: band[0]});
+      res.render("band", {band: band});
     }
   });
 });
