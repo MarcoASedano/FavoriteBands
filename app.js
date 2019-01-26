@@ -4,6 +4,7 @@ var express         = require("express"),
     methodOverride  = require("method-override");
     mongoose        = require("mongoose");
     Band            = require("./models/band")
+    Comment         = require("./models/comment");
     request         = require("request");
 
 //connect to mongoose server
@@ -33,14 +34,14 @@ app.get("/bands", function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      res.render("index", {bands: allBands});
+      res.render("bands/index", {bands: allBands});
     }
   })
 });
 
 // form to add a NEW band
 app.get("/bands/new", function(req, res) {
-  res.render("new");
+  res.render("bands/new");
 });
 
 // CREATE new band object to database
@@ -56,11 +57,11 @@ app.post("/bands", function(req, res) {
 
 // GET more information about one band
 app.get("/bands/:id", function(req, res) {
-  Band.findById(req.params.id, function(err, band) {
+  Band.findById(req.params.id).populate("comments").exec(function(err, band) {
     if (err) {
       console.log(err);
     } else {
-      res.render("band", {band: band});
+      res.render("bands/band", {band: band});
     }
   });
 });
@@ -71,7 +72,7 @@ app.get("/bands/:id/edit", function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      res.render("edit", {band: band});
+      res.render("bands/edit", {band: band});
     }
   });
 });
@@ -96,6 +97,15 @@ app.delete("/bands/:id", function(req, res) {
       res.redirect("/bands");
     }
   });
+});
+
+//====================
+// Comment Routes
+//====================
+
+app.get("/bands/:id/comments/new", function(req, res) {
+  console.log("made it to the comments new route");
+  res.send("This will be the comment form");
 });
 
 // start server

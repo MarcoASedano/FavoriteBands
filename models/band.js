@@ -4,7 +4,13 @@ var mongoose = require("mongoose");
 var bandSchema = new mongoose.Schema({
   name: String,
   img: String,
-  wiki: String
+  wiki: String,
+  comments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Comment"
+    }
+  ]
 });
 
 module.exports = mongoose.model("Band", bandSchema);
