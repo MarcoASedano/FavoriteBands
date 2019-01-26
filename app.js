@@ -82,6 +82,7 @@ app.put("/bands/:id", function(req, res) {
   Band.findByIdAndUpdate(req.params.id, req.body.band, function(err, band) {
     if (err) {
       console.log(err);
+      res.redirect("/bands");
     } else {
       res.redirect("/bands/" + req.params.id);
     }
@@ -93,6 +94,7 @@ app.delete("/bands/:id", function(req, res) {
   Band.findByIdAndRemove(req.params.id, function(err) {
     if (err) {
       console.log(err);
+      res.redirect("/bands");
     } else {
       res.redirect("/bands");
     }
@@ -104,9 +106,34 @@ app.delete("/bands/:id", function(req, res) {
 //====================
 
 app.get("/bands/:id/comments/new", function(req, res) {
-  console.log("made it to the comments new route");
-  res.send("This will be the comment form");
+  Band.findById(req.params.id, function(err, band) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("comments/new", {band: band});
+    }
+  });
 });
+
+app.post("/bands/:id/comments", function(req, res) {
+  Band.findById(req.params.id, function(err, band) {
+    if (err) {
+      console.log(err);
+      res.redirect("/bands");
+    } else {
+      Comment.create(req.body.comment, function(err, comment) {
+        if (err) {
+          console.log(err);
+        }
+        else {
+          band.comments.push(comment);
+          band.save();
+          res.redirect("/bands/" + band._id);
+        }
+      })
+    }
+  });
+})
 
 // start server
 app.listen(3000, function() {

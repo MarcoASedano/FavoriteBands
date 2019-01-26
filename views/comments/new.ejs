@@ -1,0 +1,24 @@
+<% include ../partials/header %>
+
+<div class="container">
+  <div class="card w-75 mx-auto mt-5">
+    <h1 class="card-header">Leave a comment for <%= band.name %></h1>
+    <div class="card-body">
+      <p class="card-text">Please fill out all of the fields:</p>
+      <form action="/bands/<%= band._id %>/comments" method="POST">
+        <div class="form-group">
+          <label for="name">Author</label>
+          <input type="text" class="form-control" id="author" name="comment[author]" placeholder="author" required>
+        </div>
+        <div class="form-group">
+          <label for="text">Write a comment:</label>
+          <input type="text" class="form-control" id="text" name="comment[text]" placeholder="..." required>
+        </div>
+        <button type="submit" class="btn btn-success btn-sm">Create</button>
+        <a href="/bands/<%= band._id %>" class="btn btn-outline-primary btn-sm">Cancel</a>
+      </form>
+    </div>
+  </div>
+</div>
+
+<% include ../partials/footer %>
