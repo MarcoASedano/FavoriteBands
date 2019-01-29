@@ -49,7 +49,21 @@ app.get("/bands", function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      res.render("bands/index", {bands: allBands});
+      var sortedBands = allBands.sort(function(a, b) {
+        var nameA = a.name.toUpperCase(); // ignore upper and lowercase
+        var nameB = b.name.toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+
+        // names must be equal
+        return 0;
+      });
+
+      res.render("bands/index", {bands: sortedBands});
     }
   })
 });
@@ -120,7 +134,7 @@ app.delete("/bands/:id", function(req, res) {
 // Comment Routes
 //====================
 
-app.get("/bands/:id/comments/new", function(req, res) {
+app.get("/bands/:id/comments/new", isLoggedIn, function(req, res) {
   Band.findById(req.params.id, function(err, band) {
     if (err) {
       console.log(err);
@@ -130,7 +144,7 @@ app.get("/bands/:id/comments/new", function(req, res) {
   });
 });
 
-app.post("/bands/:id/comments", function(req, res) {
+app.post("/bands/:id/comments", isLoggedIn, function(req, res) {
   Band.findById(req.params.id, function(err, band) {
     if (err) {
       console.log(err);
@@ -178,6 +192,19 @@ app.post("/login", passport.authenticate("local",
     failureRedirect: "/login"
   }), function(req, res) {
 });
+
+app.get("/logout", function(req, res) {
+  req.logout();
+  res.redirect("/bands");
+});
+
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+
+  res.redirect("/login");
+}
 
 // start server
 app.listen(3000, function() {

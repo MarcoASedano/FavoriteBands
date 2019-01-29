@@ -17,12 +17,12 @@
       <form class="d-inline-block" action="/bands/<%= band._id %>?_method=DELETE" method="POST">
         <button class="btn btn-outline-primary">Delete</button>
       </form>
-      <a class="btn btn-dark" href="/bands/<%= band._id %>/comments/new">Add a comment</a>
       <a class="btn btn-outline-success" href="/bands">Go home</a>
     </div>
   </div>
 
   <div class="card w-auto my-3">
+    <a class="btn btn-dark btn-sm ml-auto mt-3 mr-3" href="/bands/<%= band._id %>/comments/new">Add a comment</a>
     <div class="card-body">
       <% band.comments.forEach(function(comment) { %>
         <strong><%= comment.author %></strong>
