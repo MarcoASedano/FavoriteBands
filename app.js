@@ -3,15 +3,17 @@ var express         = require("express"),
     bodyParser      = require("body-parser"),
     methodOverride  = require("method-override");
     mongoose        = require("mongoose");
+    passport        = require("passport");
+    LocalStrategy   = require("passport-local");
     Band            = require("./models/band")
     Comment         = require("./models/comment");
+    User            = require("./models/user");
     request         = require("request");
 
 //connect to mongoose server
 mongoose.connect("mongodb://localhost/favoritebands", {useNewUrlParser: true});
 
 // set public directory for static files
-console.log(__dirname);
 app.use(express.static(__dirname + "/public"));
 
 // use bodyParser to parse incoming post requests
