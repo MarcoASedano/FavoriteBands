@@ -24,6 +24,9 @@ router.post("/", isLoggedIn, function(req, res) {
           console.log(err);
         }
         else {
+          comment.author.id = req.user._id;
+          comment.author.username = req.user.username;
+          comment.save();
           band.comments.push(comment);
           band.save();
           res.redirect("/bands/" + band._id);
