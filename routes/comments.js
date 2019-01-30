@@ -2,8 +2,9 @@ var express = require("express");
 var router  = express.Router({mergeParams: true});
 var Band    = require("../models/band");
 var Comment = require("../models/comment");
+var middleware = require("../middleware");
 
-router.get("/new", isLoggedIn, function(req, res) {
+router.get("/new", middleware.isLoggedIn, function(req, res) {
   Band.findById(req.params.id, function(err, band) {
     if (err) {
       console.log(err);
@@ -13,7 +14,7 @@ router.get("/new", isLoggedIn, function(req, res) {
   });
 });
 
-router.post("/", isLoggedIn, function(req, res) {
+router.post("/", middleware.isLoggedIn, function(req, res) {
   Band.findById(req.params.id, function(err, band) {
     if (err) {
       console.log(err);
@@ -35,13 +36,5 @@ router.post("/", isLoggedIn, function(req, res) {
     }
   });
 });
-
-function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-
-  res.redirect("/login");
-}
 
 module.exports = router;
