@@ -26,12 +26,18 @@ router.get("/", function(req, res) {
   })
 });
 
-router.get("/new", function(req, res) {
+router.get("/new", isLoggedIn, function(req, res) {
   res.render("bands/new");
 });
 
-router.post("/bands", function(req, res) {
-  Band.create(req.body.band, function(err, band) {
+router.post("/", isLoggedIn, function(req, res) {
+  var author = {
+    id: req.user._id,
+    username: req.user.username
+  };
+  var reqBand = req.body.band;
+  reqBand.author = author;
+  Band.create(reqBand, function(err, band) {
     if (err) {
       console.log(err);
     } else {
@@ -50,17 +56,17 @@ router.get("/:id", function(req, res) {
   });
 });
 
-router.get("/:id/edit", function(req, res) {
+router.get("/:id/edit", checkBandOwnership, function(req, res) {
   Band.findById(req.params.id, function(err, band) {
     if (err) {
-      console.log(err);
+      res.redirect("/bands");
     } else {
       res.render("bands/edit", {band: band});
     }
   });
 });
 
-router.put("/:id", function(req, res) {
+router.put("/:id", checkBandOwnership, function(req, res) {
   Band.findByIdAndUpdate(req.params.id, req.body.band, function(err, band) {
     if (err) {
       console.log(err);
@@ -71,15 +77,44 @@ router.put("/:id", function(req, res) {
   });
 });
 
-router.delete("/:id", function(req, res) {
-  Band.findByIdAndRemove(req.params.id, function(err) {
+router.delete("/:id", checkBandOwnership, function(req, res) {
+  Band.findByIdAndRemove(req.params.id, function(err, bandRemoved) {
     if (err) {
       console.log(err);
-      res.redirect("/bands");
-    } else {
-      res.redirect("/bands");
     }
+    Comment.deleteMany( {_id: {$in: bandRemoved.comments } }, function (err) {
+      if (err) {
+        console.log(err);
+      }
+      res.redirect("/bands");
+    });
   });
 });
+
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+
+  res.redirect("/login");
+}
+
+function checkBandOwnership(req, res, next) {
+  if (req.isAuthenticated()) {
+    Band.findById(req.params.id, function(err, band) {
+      if (err) {
+        res.redirect("back");
+      } else {
+        if (band.author.id.equals(req.user._id)) {
+          next();
+        } else {
+          res.redirect("back");
+        }
+      }
+    });
+  } else {
+    res.redirect("back");
+  }
+}
 
 module.exports = router;

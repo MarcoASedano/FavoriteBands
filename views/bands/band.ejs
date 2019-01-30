@@ -11,12 +11,16 @@
   <div class="card w-auto mt-3">
     <div class="card-body">
       <h1 class="card-title display-3"><%= band.name %></h1>
-      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+      <p class="card-text">
+        <em>Submitted by: <%= band.author.username %></em>
+      </p>
       <a class="btn btn-primary" href="<%= band.wiki %>">Wiki</a>
-      <a class="btn btn-warning" href="/bands/<%= band._id %>/edit">Edit</a>
-      <form class="d-inline-block" action="/bands/<%= band._id %>?_method=DELETE" method="POST">
-        <button class="btn btn-outline-primary">Delete</button>
-      </form>
+      <% if (currentUser && band.author.id.equals(currentUser._id)) { %>
+        <a class="btn btn-warning" href="/bands/<%= band._id %>/edit">Edit</a>
+        <form class="d-inline-block" action="/bands/<%= band._id %>?_method=DELETE" method="POST">
+          <button class="btn btn-outline-primary">Delete</button>
+        </form>
+      <% } %>
       <a class="btn btn-outline-success" href="/bands">Go home</a>
     </div>
   </div>
